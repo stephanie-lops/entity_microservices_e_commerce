@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "F+upwkjbRK0=",
+  "success": true,
+  "projectFilePath": "/Users/stephanielopes/Documents/2025/Software Projects Icloud/Bootcamp_Avanade_Back_End/Microservices_E_Commerce/Microservices_E_Commerce.csproj",
+  "expectedPackageFiles": [
+    "/Users/stephanielopes/.nuget/packages/microsoft.aspnetcore.openapi/9.0.9/microsoft.aspnetcore.openapi.9.0.9.nupkg.sha512",
+    "/Users/stephanielopes/.nuget/packages/microsoft.openapi/1.6.17/microsoft.openapi.1.6.17.nupkg.sha512"
+  ],
+  "logs": []
+}
