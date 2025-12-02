@@ -13,7 +13,7 @@ A arquitetura foi desenvolvida com:
 
 ---
 
-# 🧱 Arquitetura
+# Arquitetura
 
 ```
 Microservices_E_Commerce/
@@ -39,9 +39,9 @@ Cada microserviço possui seu próprio banco e é totalmente independente.
 
 ---
 
-# 🚀 Microserviços
+# Microserviços
 
-## 1️⃣ Inventory.API — Gestão de Estoque
+## 1. Inventory.API — Gestão de Estoque
 
 - Cadastrar produtos  
 - Listar produtos  
@@ -61,7 +61,7 @@ PUT    /api/products/{id}/stock
 
 ---
 
-## 2️⃣ Sales.API — Gestão de Vendas
+## 2. Sales.API — Gestão de Vendas
 
 - Criar pedidos  
 - Listar pedidos  
@@ -84,7 +84,7 @@ POST http://localhost:5212/api/products/reserve
 
 ---
 
-# 🧩 API Gateway (Ocelot)
+# 3. API Gateway (Ocelot)
 
 O Gateway direciona:
 
@@ -102,7 +102,7 @@ O Gateway centraliza e protege o acesso aos microserviços.
 
 ---
 
-# ⚙️ Como Executar
+# Como Executar
 
 ### 1. Rodar Inventory.API
 ```
@@ -216,7 +216,7 @@ Garantindo isolamento entre domínios.
 
 ---
 
-# Próximas Extensões (Não Obrigatórias)
+# Próximas Extensões
 
 - RabbitMQ para comunicação assíncrona  
 - JWT Authentication  
