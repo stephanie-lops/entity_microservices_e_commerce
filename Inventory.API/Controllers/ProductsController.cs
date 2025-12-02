@@ -8,7 +8,6 @@ namespace Inventory.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
     public class ProductsController : ControllerBase
     {
         private readonly InventoryDbContext _context;
@@ -50,5 +49,28 @@ namespace Inventory.API.Controllers
             await _context.SaveChangesAsync();
             return NoContent();
         }
+
+        [HttpPost("reserve")]
+        public async Task<IActionResult> ReserveStock([FromBody] ReserveRequest request)
+        {
+            var product = await _context.Products.FindAsync(request.ProductId);
+
+            if (product == null)
+                return BadRequest("Produto não encontrado");
+
+            if (product.Quantity < request.Quantity)
+                return BadRequest("Estoque insuficiente");
+
+            product.Quantity -= request.Quantity;
+            await _context.SaveChangesAsync();
+
+            return Ok(new
+            {
+                message = "Estoque reservado com sucesso",
+                productId = product.Id,
+                newQuantity = product.Quantity
+            });
+        }
+
     }
 }

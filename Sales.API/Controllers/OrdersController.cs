@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Sales.API.Data;
 using Sales.API.Models;
+using Sales.API.Dtos;
+
 
 namespace Sales.API.Controllers
 {
@@ -12,10 +14,12 @@ namespace Sales.API.Controllers
     public class OrdersController : ControllerBase
     {
         private readonly SalesDbContext _context;
+        private readonly HttpClient _httpClient;
 
-        public OrdersController(SalesDbContext context)
+        public OrdersController(SalesDbContext context, IHttpClientFactory httpClientFactory)
         {
             _context = context;
+            _httpClient = httpClientFactory.CreateClient("inventory");
         }
 
         [HttpGet]
@@ -36,10 +40,30 @@ namespace Sales.API.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateOrder(Order order)
         {
-            // Aqui futuramente você vai chamar Inventory.API para validar estoque
+            // Prepara o objeto que o Inventory espera
+            var reserveRequest = new InventoryReserveRequest
+            {
+                ProductId = order.ProductId,
+                Quantity = order.Quantity
+            };
+
+            // Chama o Inventory
+            var response = await _httpClient.PostAsJsonAsync(
+                "http://localhost:5212/api/products/reserve",
+                reserveRequest
+            );
+
+            if (!response.IsSuccessStatusCode)
+            {
+                return BadRequest("Produto não disponível em estoque");
+            }
+
+            // Salva o pedido
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
+
             return CreatedAtAction(nameof(GetOrder), new { id = order.Id }, order);
         }
+
     }
 }

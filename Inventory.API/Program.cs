@@ -1,39 +1,15 @@
 using Inventory.API.Data;
-using Inventory.API.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container
+// DB
 builder.Services.AddDbContext<InventoryDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("InventoryConnection")));
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
 builder.Services.AddControllers();
-
-// JWT Authentication
-var key = Encoding.ASCII.GetBytes("SUA_CHAVE_SECRETA_AQUI");
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-})
-.AddJwtBearer(options =>
-{
-    options.RequireHttpsMetadata = false;
-    options.SaveToken = true;
-    options.TokenValidationParameters = new TokenValidationParameters
-    {
-        ValidateIssuer = false,
-        ValidateAudience = false,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(key)
-    };
-});
 
 // Swagger
 builder.Services.AddEndpointsApiExplorer();
@@ -44,16 +20,11 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
-// Configure middleware
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Inventory API v1"));
+    app.UseSwaggerUI();
 }
-
-
-app.UseAuthentication();
-app.UseAuthorization();
 
 app.MapControllers();
 

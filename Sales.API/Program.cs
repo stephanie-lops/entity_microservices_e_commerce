@@ -21,6 +21,14 @@ builder.Services.AddDbContext<SalesDbContext>(options =>
 
 builder.Services.AddControllers();
 
+// Chamando o Inventory.API
+builder.Services.AddHttpClient("inventory", client =>
+{
+    client.BaseAddress = new Uri("http://localhost:5212/");
+});
+
+
+
 // JWT Authentication
 var key = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]);
 
