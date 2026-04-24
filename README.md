@@ -231,7 +231,6 @@ This project demonstrates a modern microservices architecture with a gateway, se
 
 
 
-
 ----------------------------------------------------------
 
 
@@ -239,7 +238,7 @@ This project demonstrates a modern microservices architecture with a gateway, se
 [Portuguese]
 
 
-
+----------------------------------------------------------
 
 # Microservices E-Commerce — Inventory, Sales e API Gateway
 
