@@ -229,8 +229,17 @@ Ensuring domain isolation.
 
 This project demonstrates a modern microservices architecture with a gateway, service isolation, inter-service communication, and independent persistence — all essential requirements for distributed and scalable systems.
 
+
+
+
 ----------------------------------------------------------
+
+
+
 [Portuguese]
+
+
+
 
 # Microservices E-Commerce — Inventory, Sales e API Gateway
 
